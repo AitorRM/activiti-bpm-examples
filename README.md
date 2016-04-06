@@ -1,17 +1,9 @@
-# Microservice Java EE 7 basic with EJB 3.2
+# BPM Process examples with Java and Activiti BPM Platform API
 
-This is an example of Java EE 7 microservice with the following characteristics:
+Activiti is a light-weight workflow and Business Process Management (BPM) Platform. Its core is a BPMN 2 process engine for Java: http://activiti.org/
 
-- Multi-Module Maven 3 proyect with two submodules:
-  - EJB 3.2 microservice
-    - Boundary-Control-Entity pattern
-    - Stateless and Singleton session beans samples
-    - Arquillian EJB testing for two profiles:
-      - Glassfish 4.1 embedded
-      - Wildfly 8.2.1.Final managed
-  - Remote client
-    - RMI remote access for EJB (lookup)
-    - Log4j traces
+In this project there are examples of using the standard BPMN and the implementation made by Activiti.
 
-- Tested with remote client in Wildfly 9.0.1.Final server
+- simpleProcess:
+
 
