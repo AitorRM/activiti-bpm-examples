@@ -6,7 +6,7 @@ In this project there are examples of using the standard BPMN and the implementa
 
 - Simple process:
 
-![simpleProcess](https://github.com/AitorRM/activiti-bpm-examples/blob/master/src/main/resources/com/aezin/workshop/activiti/simpleprocess/process_simple-process.bpmn20.png)
+![simpleProcess](https://github.com/AitorRM/activiti-bpm-examples/blob/master/src/main/resources/com/aezin/workshop/activiti/simpleprocess/process_simple.bpmn20.png)
 
 - Boundary Message Events (simple and interrupt):
 
