@@ -71,3 +71,4 @@ local.properties
 # BPMN git ignore
 # ----------------------
 .bpmn
+.xml
