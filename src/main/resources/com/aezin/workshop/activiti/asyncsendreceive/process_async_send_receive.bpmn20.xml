@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="https://github.com/AitorRM/workshop">
+  <collaboration id="Collaboration">
+    <participant id="pool_requester" name="Requester" processRef="process_requester"></participant>
+    <participant id="pool_responser" name="Responser" processRef="process_responser"></participant>
+    <messageFlow id="messageflow1" sourceRef="servicetask_req_send_request" targetRef="receivetask_res_receive_request"></messageFlow>
+    <messageFlow id="messageflow2" sourceRef="servicetask_res_send_response" targetRef="receivetask_req_receive_response"></messageFlow>
+  </collaboration>
+  <process id="process_requester" name="Requester Process" isExecutable="true">
+    <laneSet id="laneSet_process_requester">
+      <lane id="lane1">
+        <flowNodeRef>startevent_req</flowNodeRef>
+        <flowNodeRef>endevent_req</flowNodeRef>
+        <flowNodeRef>servicetask_req_send_request</flowNodeRef>
+        <flowNodeRef>receivetask_req_receive_response</flowNodeRef>
+        <flowNodeRef>servicetask_req_manage_response</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="startevent_req" name="Start"></startEvent>
+    <serviceTask id="servicetask_req_send_request" name="Send Request" activiti:class="com.aezin.workshop.activiti.asyncsendreceive.RequesterService"></serviceTask>
+    <sequenceFlow id="flow1" sourceRef="startevent_req" targetRef="servicetask_req_send_request"></sequenceFlow>
+    <receiveTask id="receivetask_req_receive_response" name="Receive Response"></receiveTask>
+    <sequenceFlow id="flow5" sourceRef="servicetask_req_send_request" targetRef="receivetask_req_receive_response"></sequenceFlow>
+    <serviceTask id="servicetask_req_manage_response" name="Manage Response" activiti:class="com.aezin.workshop.activiti.asyncsendreceive.RequesterService"></serviceTask>
+    <sequenceFlow id="flow6" sourceRef="receivetask_req_receive_response" targetRef="servicetask_req_manage_response"></sequenceFlow>
+    <endEvent id="endevent_req" name="End"></endEvent>
+    <sequenceFlow id="flow7" sourceRef="servicetask_req_manage_response" targetRef="endevent_req"></sequenceFlow>
+  </process>
+  <process id="process_responser" name="Responser Process" isExecutable="true">
+    <laneSet id="laneSet_process_responser">
+      <lane id="lane2">
+        <flowNodeRef>startevent_res</flowNodeRef>
+        <flowNodeRef>endevent_res</flowNodeRef>
+        <flowNodeRef>receivetask_res_receive_request</flowNodeRef>
+        <flowNodeRef>servicetask_res_evaluate_request</flowNodeRef>
+        <flowNodeRef>servicetask_res_send_response</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="startevent_res" name="Start"></startEvent>
+    <receiveTask id="receivetask_res_receive_request" name="Receive Request"></receiveTask>
+    <sequenceFlow id="flow2" sourceRef="startevent_res" targetRef="receivetask_res_receive_request"></sequenceFlow>
+    <serviceTask id="servicetask_res_evaluate_request" name="Evaluate Request" activiti:async="true" activiti:class="com.aezin.workshop.activiti.asyncsendreceive.ResponserService"></serviceTask>
+    <sequenceFlow id="flow3" sourceRef="receivetask_res_receive_request" targetRef="servicetask_res_evaluate_request"></sequenceFlow>
+    <serviceTask id="servicetask_res_send_response" name="Send Response" activiti:class="com.aezin.workshop.activiti.asyncsendreceive.ResponserService"></serviceTask>
+    <sequenceFlow id="flow4" sourceRef="servicetask_res_evaluate_request" targetRef="servicetask_res_send_response"></sequenceFlow>
+    <endEvent id="endevent_res" name="End"></endEvent>
+    <sequenceFlow id="flow8" sourceRef="servicetask_res_send_response" targetRef="endevent_res"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
+    <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
+      <bpmndi:BPMNShape bpmnElement="pool_requester" id="BPMNShape_pool_requester">
+        <omgdc:Bounds height="150.0" width="911.0" x="30.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane1" id="BPMNShape_lane1">
+        <omgdc:Bounds height="150.0" width="891.0" x="50.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="pool_responser" id="BPMNShape_pool_responser">
+        <omgdc:Bounds height="150.0" width="911.0" x="30.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane2" id="BPMNShape_lane2">
+        <omgdc:Bounds height="150.0" width="891.0" x="50.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent_req" id="BPMNShape_startevent_req">
+        <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask_req_send_request" id="BPMNShape_servicetask_req_send_request">
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="receivetask_req_receive_response" id="BPMNShape_receivetask_req_receive_response">
+        <omgdc:Bounds height="55.0" width="145.0" x="510.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask_req_manage_response" id="BPMNShape_servicetask_req_manage_response">
+        <omgdc:Bounds height="55.0" width="131.0" x="700.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent_req" id="BPMNShape_endevent_req">
+        <omgdc:Bounds height="35.0" width="35.0" x="876.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent_res" id="BPMNShape_startevent_res">
+        <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="receivetask_res_receive_request" id="BPMNShape_receivetask_res_receive_request">
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask_res_evaluate_request" id="BPMNShape_servicetask_res_evaluate_request">
+        <omgdc:Bounds height="55.0" width="151.0" x="330.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask_res_send_response" id="BPMNShape_servicetask_res_send_response">
+        <omgdc:Bounds height="55.0" width="105.0" x="530.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent_res" id="BPMNShape_endevent_res">
+        <omgdc:Bounds height="35.0" width="35.0" x="880.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="messageflow1" id="BPMNEdge_messageflow1">
+        <omgdi:waypoint x="212.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="messageflow2" id="BPMNEdge_messageflow2">
+        <omgdi:waypoint x="582.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="582.0" y="155.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="115.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="127.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="265.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="510.0" y="127.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="655.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="127.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="831.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="876.0" y="127.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="125.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="265.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="481.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="530.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="635.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="880.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

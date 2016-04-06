@@ -13,3 +13,7 @@ In this project there are examples of using the standard BPMN and the implementa
 ![Boundary message parent process](https://github.com/AitorRM/activiti-bpm-examples/blob/master/src/main/resources/com/aezin/workshop/activiti/boundarymessage/process_boundary_event_parent.bpmn20.png)
 
 ![Boundary message child process](https://github.com/AitorRM/activiti-bpm-examples/blob/master/src/main/resources/com/aezin/workshop/activiti/boundarymessage/process_boundary_event_child.bpmn20.png)
+
+- Asynchronous send-receive process comunication:
+
+![Asynchronous send-receive process comunication](https://github.com/AitorRM/activiti-bpm-examples/blob/master/src/main/resources/com/aezin/workshop/activiti/asyncsendreceive/process_async_send_receive.bpmn20.png)
