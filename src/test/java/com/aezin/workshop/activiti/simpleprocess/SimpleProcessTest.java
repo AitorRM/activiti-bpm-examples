@@ -28,12 +28,12 @@ public class SimpleProcessTest {
 	}
 	
 	@Test
-	@Deployment(resources = {"com/aezin/workshop/activiti/simpleprocess/process_simple-process.bpmn20.xml"})
+	@Deployment(resources = {"com/aezin/workshop/activiti/simpleprocess/process_simple.bpmn20.xml"})
 	public void test() {
 		TaskService taskService = activitiRule.getTaskService();
 		
 		// Start process
-		String processInstanceId = processTestOperations.startProcessInstance("simple-process");
+		String processInstanceId = processTestOperations.startProcessInstance("simple_process");
 		
 		// Get UserTask
 		Task task = processTestOperations.getCurrentTask("usertask", processInstanceId);

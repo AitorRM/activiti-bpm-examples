@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="https://github.com/AitorRM/workshop">
+  <message id="testBoundaryMessage" name="testBoundaryMessage"></message>
+  <message id="testBoundaryInterruptMessage" name="testBoundaryInterruptMessage"></message>
+  <process id="process_boundary_event_parent" name="Boundary Event Process" isExecutable="true">
+    <startEvent id="startevent" name="Start"></startEvent>
+    <serviceTask id="servicetask_manage_boundary_message" name="Manage Boundary Message" activiti:class="com.aezin.workshop.activiti.boundarymessage.parent.ManageBoundaryMessageService"></serviceTask>
+    <userTask id="usertask" name="User Task"></userTask>
+    <sequenceFlow id="flow7" sourceRef="startevent" targetRef="usertask"></sequenceFlow>
+    <endEvent id="endevent_fin_parent_normal" name="End"></endEvent>
+    <sequenceFlow id="flow8" sourceRef="servicetask_manage_complete_task" targetRef="endevent_fin_parent_normal"></sequenceFlow>
+    <boundaryEvent id="boundarymessage2" name="Message" attachedToRef="usertask" cancelActivity="false">
+      <messageEventDefinition messageRef="testBoundaryMessage"></messageEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow9" sourceRef="boundarymessage2" targetRef="servicetask_manage_boundary_message"></sequenceFlow>
+    <serviceTask id="servicetask_manage_complete_task" name="Manage Complete Task" activiti:class="com.aezin.workshop.activiti.boundarymessage.parent.ManageCompleteTaskService"></serviceTask>
+    <sequenceFlow id="flow10" sourceRef="usertask" targetRef="servicetask_manage_complete_task"></sequenceFlow>
+    <endEvent id="endevent_fin_parent_event" name="End"></endEvent>
+    <sequenceFlow id="flow11" sourceRef="servicetask_manage_boundary_message" targetRef="endevent_fin_parent_event"></sequenceFlow>
+    <boundaryEvent id="boundarymessage3" name="Message" attachedToRef="usertask" cancelActivity="true">
+      <messageEventDefinition messageRef="testBoundaryInterruptMessage"></messageEventDefinition>
+    </boundaryEvent>
+    <serviceTask id="servicetask_manage_interrupt_message" name="Manage Interrupt Message" activiti:class="com.aezin.workshop.activiti.boundarymessage.parent.ManageInterruptMessageService"></serviceTask>
+    <sequenceFlow id="flow12" sourceRef="boundarymessage3" targetRef="servicetask_manage_interrupt_message"></sequenceFlow>
+    <endEvent id="endevent_fin_parent_interrupt" name="End"></endEvent>
+    <sequenceFlow id="flow13" sourceRef="servicetask_manage_interrupt_message" targetRef="endevent_fin_parent_interrupt"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_process_boundary_event_parent">
+    <bpmndi:BPMNPlane bpmnElement="process_boundary_event_parent" id="BPMNPlane_process_boundary_event_parent">
+      <bpmndi:BPMNShape bpmnElement="startevent" id="BPMNShape_startevent">
+        <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask_manage_boundary_message" id="BPMNShape_servicetask_manage_boundary_message">
+        <omgdc:Bounds height="81.0" width="105.0" x="182.0" y="287.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask" id="BPMNShape_usertask">
+        <omgdc:Bounds height="55.0" width="105.0" x="170.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundarymessage2" id="BPMNShape_boundarymessage2">
+        <omgdc:Bounds height="30.0" width="30.0" x="220.0" y="224.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundarymessage3" id="BPMNShape_boundarymessage3">
+        <omgdc:Bounds height="30.0" width="30.0" x="220.0" y="161.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent_fin_parent_normal" id="BPMNShape_endevent_fin_parent_normal">
+        <omgdc:Bounds height="35.0" width="35.0" x="470.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask_manage_complete_task" id="BPMNShape_servicetask_manage_complete_task">
+        <omgdc:Bounds height="80.0" width="105.0" x="321.0" y="168.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent_fin_parent_event" id="BPMNShape_endevent_fin_parent_event">
+        <omgdc:Bounds height="35.0" width="35.0" x="332.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask_manage_interrupt_message" id="BPMNShape_servicetask_manage_interrupt_message">
+        <omgdc:Bounds height="85.0" width="105.0" x="182.0" y="35.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent_fin_parent_interrupt" id="BPMNShape_endevent_fin_parent_interrupt">
+        <omgdc:Bounds height="35.0" width="35.0" x="332.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="105.0" y="207.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="207.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="426.0" y="208.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="207.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="235.0" y="254.0"></omgdi:waypoint>
+        <omgdi:waypoint x="234.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="275.0" y="207.0"></omgdi:waypoint>
+        <omgdi:waypoint x="321.0" y="208.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="287.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="332.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="235.0" y="161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="234.0" y="120.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="287.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="332.0" y="77.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

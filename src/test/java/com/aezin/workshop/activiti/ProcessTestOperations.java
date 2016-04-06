@@ -114,6 +114,6 @@ public class ProcessTestOperations {
 			assertTrue(allExpectedEndEventExist);
 		}
 		
-		System.out.println("Process '" + processInstanceId + "' --> Finalizado: " + endEventNameList);
+		System.out.println("Process '" + processInstanceId + "' --> Finish: " + endEventNameList);
 	}
 }
